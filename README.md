@@ -1,3 +1,14 @@
+# Facebook Clone
+
+- React + React Hooks
+- React Context API
+- Material UI
+- Flexbox
+- Firebase Realtime DB
+- Firebase Hosting
+- Google Authentication
+- React flip move
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
