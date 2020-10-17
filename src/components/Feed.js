@@ -28,6 +28,7 @@ function Feed() {
           timestamp={post.data.timestamp}
           username={post.data.username}
           image={post.data.image}
+          profilePic={post.data.profilePic}
         />
       ))}
     </div>

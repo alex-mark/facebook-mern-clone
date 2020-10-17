@@ -21,7 +21,7 @@ function MessageSender() {
       message: input,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       profilePic: user.photoURL,
-      user: user.displayName,
+      username: user.displayName,
       image: imageUrl,
     });
 
