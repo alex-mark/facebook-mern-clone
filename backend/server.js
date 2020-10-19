@@ -37,10 +37,39 @@ mongoose.connect(mongoURI, {
 
 mongoose.connection.once("open", () => console.log("main: DB Connected"));
 
-conn.once("open", () => console.log("conn: DB Connected"));
+let gfs;
+
+conn.once("open", () => {
+  console.log("conn: DB Connected");
+
+  gfs = Grid(conn.db, mongoose.mongo);
+  gfs.collection("images");
+});
+
+const storage = new GridFsStorage({
+  url: mongoURI,
+  file: (req, file) => {
+    return new Promise((resolve, reject) => {
+      const filename = `image-${Date.now()}${path.extname(file.originalname)}}`;
+
+      const fileInfo = {
+        filename: filename,
+        bucketName: "images",
+      };
+
+      resolve(fileInfo);
+    });
+  },
+});
+
+const upload = multer({ storage });
 
 // api routes
 app.get("/", (req, res) => res.status(200).send("Hello world!"));
+
+app.post("/upload/image", upload.single("file"), (req, res) =>
+  res.status(201).send(req.file)
+);
 
 // listen
 app.listen(port, () => console.log(`Listening on localhost:${port}`));
