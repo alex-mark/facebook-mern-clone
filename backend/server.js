@@ -71,5 +71,20 @@ app.post("/upload/image", upload.single("file"), (req, res) =>
   res.status(201).send(req.file)
 );
 
+app.get("/retrieve/image/single", (req, res) => {
+  gfs.files.findOne({ filename: req.query.name }, (err, file) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      if (!file || file.length === 0) {
+        res.status(404).json({ err: "file not found" });
+      } else {
+        const readstream = gfs.createReadStream(file.filename);
+        readstream.pipe(res);
+      }
+    }
+  });
+});
+
 // listen
 app.listen(port, () => console.log(`Listening on localhost:${port}`));
