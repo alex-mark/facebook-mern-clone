@@ -1,0 +1,13 @@
+{
+  "name": "fb-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Alex Markin",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "mongoose": "^5.10.9",
+    "multer": "^1.4.2",
+    "multer-gridfs-storage": "^4.2.0"
+  }
+}
