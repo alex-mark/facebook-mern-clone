@@ -19,8 +19,28 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // db config
+const dbPassword = process.env.MONGO_USER_PW || "";
+const dbName = "facebook_db";
+const mongoURI = `mongodb+srv://admin:${dbPassword}@cluster0.leusp.mongodb.net/${dbName}?retryWrites=true&w=majority`;
+
+const conn = mongoose.createConnection(mongoURI, {
+  useCreateIndex: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+mongoose.connect(mongoURI, {
+  useCreateIndex: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+mongoose.connection.once("open", () => console.log("main: DB Connected"));
+
+conn.once("open", () => console.log("conn: DB Connected"));
 
 // api routes
 app.get("/", (req, res) => res.status(200).send("Hello world!"));
 
 // listen
+app.listen(port, () => console.log(`Listening on localhost:${port}`));
