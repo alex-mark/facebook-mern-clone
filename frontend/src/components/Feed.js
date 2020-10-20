@@ -41,9 +41,9 @@ function Feed() {
           key={post._id}
           message={post.text}
           timestamp={post.timestamp}
-          username={post.username}
+          username={post.user}
           imgName={post.imgName}
-          profilePic={post.profilePic}
+          profilePic={post.avatar}
         />
       ))}
     </div>
