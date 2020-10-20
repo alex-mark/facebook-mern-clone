@@ -2,8 +2,6 @@
 
 ## [Try in Live](https://facebook-mern-clone-22737.web.app/)
 
-[API URL](https://fb-mern-clone-alex.herokuapp.com)
-
 ## Frontend
 
 - React + React Hooks
@@ -22,3 +20,4 @@
 - Google Authentication
 - Heroku Hosting (Express)
 - MongoDB Cloud + AWS for hosting & managing Database
+- [API URL](https://fb-mern-clone-alex.herokuapp.com)
