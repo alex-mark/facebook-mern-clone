@@ -1,6 +1,6 @@
 # Facebook MERN Clone
 
-## [Try in Live](https://facebook-mern-clone-22737.web.app/)
+## [Try it Live](https://facebook-mern-clone-22737.web.app/)
 
 ## Frontend
 
