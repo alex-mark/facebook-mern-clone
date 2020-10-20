@@ -8,6 +8,8 @@ import bodyParser from "body-parser";
 import path from "path";
 import Pusher from "pusher";
 
+import mongoPosts from "./mongoPosts";
+
 Grid.mongo = mongoose.mongo;
 
 // app config
@@ -71,6 +73,20 @@ app.post("/upload/image", upload.single("file"), (req, res) =>
   res.status(201).send(req.file)
 );
 
+app.post("/upload/post", (req, res) => {
+  const dbPost = req.body;
+
+  console.log(dbPost);
+
+  mongoPosts.create(dbPost, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(201).send(data);
+    }
+  });
+});
+
 app.get("/retrieve/image/single", (req, res) => {
   gfs.files.findOne({ filename: req.query.name }, (err, file) => {
     if (err) {
@@ -82,6 +98,17 @@ app.get("/retrieve/image/single", (req, res) => {
         const readstream = gfs.createReadStream(file.filename);
         readstream.pipe(res);
       }
+    }
+  });
+});
+
+app.get("retrieve/posts", (req, res) => {
+  mongoPosts.find((err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      data.sort((b, a) => a.timestamp - b.timestamp);
+      res.status(200).send(data);
     }
   });
 });
