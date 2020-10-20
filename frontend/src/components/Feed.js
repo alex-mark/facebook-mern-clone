@@ -4,16 +4,20 @@ import StoryReel from "./StoryReel";
 import MessageSender from "./MessageSender";
 import Post from "./Post";
 import db from "../firebase";
+import axios from "../axios";
 
 function Feed() {
   const [posts, setPosts] = useState([]);
 
+  const syncFeed = () => {
+    axios.get("retrieve/posts").then((res) => {
+      console.log(res.data);
+      setPosts(res.data);
+    });
+  };
+
   useEffect(() => {
-    db.collection("posts")
-      .orderBy("timestamp", "desc")
-      .onSnapshot((snapshot) =>
-        setPosts(snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() })))
-      );
+    syncFeed();
   }, []);
 
   return (
@@ -23,12 +27,12 @@ function Feed() {
 
       {posts.map((post) => (
         <Post
-          key={post.id}
-          message={post.data.message}
-          timestamp={post.data.timestamp}
-          username={post.data.username}
-          image={post.data.image}
-          profilePic={post.data.profilePic}
+          key={post._id}
+          message={post.text}
+          timestamp={post.timestamp}
+          username={post.username}
+          imgName={post.imgName}
+          profilePic={post.profilePic}
         />
       ))}
     </div>

@@ -7,14 +7,14 @@ import ExpandMoreOutlined from "@material-ui/icons/ExpandMoreOutlined";
 import NearMeIcon from "@material-ui/icons/NearMe";
 import "./Post.css";
 
-function Post({ profilePic, image, username, timestamp, message }) {
+function Post({ profilePic, imgName, username, timestamp, message }) {
   return (
     <div className="post">
       <div className="post__top">
         <Avatar src={profilePic} className="post__avatar" />
         <div className="post__topInfo">
           <h3>{username}</h3>
-          <p>{new Date(timestamp?.toDate()).toUTCString()}</p>
+          {/* <p>{new Date(timestamp?.toDate()).toUTCString()}</p> */}
         </div>
       </div>
 
@@ -22,9 +22,14 @@ function Post({ profilePic, image, username, timestamp, message }) {
         <p>{message}</p>
       </div>
 
-      <div className="post__image">
-        <img src={image} alt="" />
-      </div>
+      {imgName && (
+        <div className="post__image">
+          <img
+            src={`http://localhost:9000/retrieve/image/single?name=${imgName}`}
+            alt=""
+          />
+        </div>
+      )}
 
       <div className="post__options">
         <div className="post__option">

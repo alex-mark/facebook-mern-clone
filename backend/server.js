@@ -8,7 +8,7 @@ import bodyParser from "body-parser";
 import path from "path";
 import Pusher from "pusher";
 
-import mongoPosts from "./mongoPosts";
+import mongoPosts from "./mongoPosts.js";
 
 Grid.mongo = mongoose.mongo;
 
@@ -102,11 +102,12 @@ app.get("/retrieve/image/single", (req, res) => {
   });
 });
 
-app.get("retrieve/posts", (req, res) => {
+app.get("/retrieve/posts", (req, res) => {
   mongoPosts.find((err, data) => {
     if (err) {
       res.status(500).send(err);
     } else {
+      console.log(data);
       data.sort((b, a) => a.timestamp - b.timestamp);
       res.status(200).send(data);
     }
