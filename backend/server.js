@@ -30,6 +30,9 @@ app.use(cors());
 
 // db config
 const dbPassword = process.env.MONGO_USER_PW || "";
+if (!dbPassword) {
+  console.log("Set up env variable MONGO_USER_PW");
+}
 const dbName = "facebook_db";
 const mongoURI = `mongodb+srv://admin:${dbPassword}@cluster0.leusp.mongodb.net/${dbName}?retryWrites=true&w=majority`;
 

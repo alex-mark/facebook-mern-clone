@@ -6,6 +6,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ExpandMoreOutlined from "@material-ui/icons/ExpandMoreOutlined";
 import NearMeIcon from "@material-ui/icons/NearMe";
 import "./Post.css";
+import { baseURL } from "../axios";
 
 function Post({ profilePic, imgName, username, timestamp, message }) {
   return (
@@ -25,7 +26,7 @@ function Post({ profilePic, imgName, username, timestamp, message }) {
       {imgName && (
         <div className="post__image">
           <img
-            src={`http://localhost:9000/retrieve/image/single?name=${imgName}`}
+            src={`${baseURL}/retrieve/image/single?name=${imgName}`}
             alt=""
           />
         </div>
