@@ -96,7 +96,7 @@ const storage = new GridFsStorage({
 const upload = multer({ storage });
 
 // api routes
-app.get("/", (req, res) => res.status(200).send("Hello world!"));
+app.get("/", (req, res) => res.status(200).send("API server works"));
 
 app.post("/upload/image", upload.single("file"), (req, res) =>
   res.status(201).send(req.file)
