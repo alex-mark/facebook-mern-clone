@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
+import Pusher from "pusher-js";
 import "./Feed.css";
 import StoryReel from "./StoryReel";
 import MessageSender from "./MessageSender";
 import Post from "./Post";
-import db from "../firebase";
 import axios from "../axios";
+
+const pusher = new Pusher("e79c20efcb6725fbac42", {
+  cluster: "eu",
+});
 
 function Feed() {
   const [posts, setPosts] = useState([]);
@@ -15,6 +19,13 @@ function Feed() {
       setPosts(res.data);
     });
   };
+
+  useEffect(() => {
+    const channel = pusher.subscribe("posts");
+    channel.bind("inserted", (data) => {
+      syncFeed();
+    });
+  }, []);
 
   useEffect(() => {
     syncFeed();
