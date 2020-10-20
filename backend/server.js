@@ -16,6 +16,14 @@ Grid.mongo = mongoose.mongo;
 const app = express();
 const port = process.env.PORT || 9000;
 
+const pusher = new Pusher({
+  appId: "1093826",
+  key: "e79c20efcb6725fbac42",
+  secret: "5c1e845807db9576a798",
+  cluster: "eu",
+  useTLS: true,
+});
+
 // middlewares
 app.use(bodyParser.json());
 app.use(cors());
@@ -37,7 +45,25 @@ mongoose.connect(mongoURI, {
   useUnifiedTopology: true,
 });
 
-mongoose.connection.once("open", () => console.log("main: DB Connected"));
+mongoose.connection.once("open", () => {
+  console.log("main: DB Connected");
+
+  const changeStream = mongoose.connection.collection("posts").watch();
+
+  changeStream.on("change", (change) => {
+    console.log(change);
+
+    if (change.operationType === "insert") {
+      console.log("Triggering Pusher");
+
+      pusher.trigger("posts", "inserted", {
+        change: change,
+      });
+    } else {
+      console.log("Error triggering Pusher");
+    }
+  });
+});
 
 let gfs;
 
