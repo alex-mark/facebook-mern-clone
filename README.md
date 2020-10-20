@@ -1,5 +1,9 @@
 # Facebook MERN Clone
 
+[Try in Live](https://facebook-mern-clone-22737.web.app/)
+
+[API URL](https://fb-mern-clone-alex.herokuapp.com)
+
 ## Frontend
 
 - React + React Hooks
@@ -16,3 +20,5 @@
 - GridFS (for image storage in MongoDB)
 - Pusher JS (for realtime updates)
 - Google Authentication
+- Heroku Hosting (Express)
+- MongoDB Cloud + AWS for hosting & managing Database
